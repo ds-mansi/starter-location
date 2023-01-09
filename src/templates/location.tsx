@@ -135,8 +135,8 @@ const Location: Template<TemplateRenderProps> = ({
 
   return (
     <>
-      <div style={{backgroundColor:"#eec0c8"}}>
-         <div style={{fontSize:"50px",backgroundColor:"pink",textAlign:"center", marginBottom:"20px"}}>
+      <div style={{backgroundColor:"#FFB6C1"}}>
+         <div style={{fontSize:"50px",backgroundColor:"pink",textAlign:"center", marginBottom:"20px",fontFamily:'"Times New Roman", Times, serif'}}>
           {name}
           </div>
           <div>
