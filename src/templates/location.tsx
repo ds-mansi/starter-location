@@ -38,16 +38,13 @@ export const config: TemplateConfig = {
     // directly as props to the default exported function.
     fields: [
       "id",
-      "uid",
-      "meta",
       "name",
-      "color",
-      "price",
+      "primaryPhoto",
+      "description"
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
       entityTypes: ["ce_lipstick"],
-      savedFilterIds:["1119666216"]
     },
     // The entity language profiles that documents will be generated for.
     localization: {
@@ -130,19 +127,28 @@ const Location: Template<TemplateRenderProps> = ({
 }) => {
   const {
     name,
-    color,
-    price,
+    primaryPhoto,
+    description,
   } = document;
+
+ 
 
   return (
     <>
-     {/* <PageLayout _site={_site}>
-*/}        <div>
-          {name}{color}{price}
+      <div style={{backgroundColor:"#eec0c8"}}>
+         <div style={{fontSize:"50px",backgroundColor:"pink",textAlign:"center", marginBottom:"20px"}}>
+          {name}
+          </div>
+          <div>
+         <img src={primaryPhoto.image.url} style={{height:"250px",width:"250px",margin:"auto",border:"2px solid black" }}></img> 
+         </div>
+         <div style={{textAlign:"center",marginTop:"20px",fontWeight:"700"}}>
+          {description}
         </div>
-      {/*</PageLayout>*/}
+     </div>
     </>
   );
 };
 
 export default Location;
+ 
