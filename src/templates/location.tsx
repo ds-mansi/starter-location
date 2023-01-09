@@ -40,7 +40,10 @@ export const config: TemplateConfig = {
       "id",
       "name",
       "primaryPhoto",
-      "description"
+      "description",
+      "c_stayingPower",
+      "c_overalRating",
+      "c_availableOn"
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
@@ -129,9 +132,12 @@ const Location: Template<TemplateRenderProps> = ({
     name,
     primaryPhoto,
     description,
+    c_stayingPower,
+    c_overalRating,
+    c_availableOn
   } = document;
 
- 
+
 
   return (
     <>
@@ -146,6 +152,15 @@ const Location: Template<TemplateRenderProps> = ({
          </div>
          <div style={{textAlign:"center",marginTop:"20px",fontWeight:"700"}}>
           {description}
+        </div>
+        <div style={{textAlign:"center",marginTop:"20px",fontWeight:"400"}}>
+          {c_stayingPower}
+        </div>
+        <div style={{textAlign:"center",marginTop:"20px",fontWeight:"400"}}>
+          {c_overalRating}
+        </div>
+        <div style={{textAlign:"center",marginTop:"20px",fontWeight:"400"}}>
+  <p>{c_availableOn}</p>
         </div>
      </div>
     </>
