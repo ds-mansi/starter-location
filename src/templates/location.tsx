@@ -140,7 +140,9 @@ const Location: Template<TemplateRenderProps> = ({
           {name}
           </div>
           <div>
+            {primaryPhoto?
          <img src={primaryPhoto.image.url} style={{height:"250px",width:"250px",margin:"auto",border:"2px solid black" }}></img> 
+         :''}
          </div>
          <div style={{textAlign:"center",marginTop:"20px",fontWeight:"700"}}>
           {description}
