@@ -20,12 +20,15 @@ import {
 } from "@yext/pages";
 import * as React from "react";
 import Banner from "../components/banner";
+import Header from "../components/header";
+import Footer from "../components/footer";
 import Details from "../components/details";
 import Hours from "../components/hours";
 import List from "../components/list";
 import PageLayout from "../components/page-layout";
 import StaticMap from "../components/static-map";
 import Favicon from "../public/yext-favicon.ico";
+import axios from "axios";
 import "../index.css";
 
 /**
@@ -37,17 +40,13 @@ export const config: TemplateConfig = {
     // Specifies the exact data that each generated document will contain. This data is passed in
     // directly as props to the default exported function.
     fields: [
-      "id",
       "name",
-      "primaryPhoto",
-      "description",
-      "c_stayingPower",
-      "c_overalRating",
-      "c_availableOn"
+      "address",
+      "c_locationAddress"
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
-      entityTypes: ["ce_lipstick"],
+      entityTypes: ["location"],
     },
     // The entity language profiles that documents will be generated for.
     localization: {
@@ -130,39 +129,41 @@ const Location: Template<TemplateRenderProps> = ({
 }) => {
   const {
     name,
-    primaryPhoto,
-    description,
-    c_stayingPower,
-    c_overalRating,
-    c_availableOn
+    address,
+    c_locationAddress
   } = document;
 
 
-
+//console.log(c_uRL1,"c_uRL1");
   return (
     <>
-      <div style={{backgroundColor:"#FFB6C1"}}>
-         <div style={{fontSize:"50px",backgroundColor:"pink",textAlign:"center", marginBottom:"20px",fontFamily:'"Times New Roman", Times, serif'}}>
-          {name}
-          </div>
-          <div>
-            {primaryPhoto?
-         <img src={primaryPhoto.image.url} style={{height:"250px",width:"250px",margin:"auto",border:"2px solid black" }}></img> 
-         :''}
-         </div>
-         <div style={{textAlign:"center",marginTop:"20px",fontWeight:"700"}}>
-          {description}
+    <Header/>
+    <div style={{backgroundColor:"#e9e7e7"}}>
+      <div style={{fontSize:"50px",textAlign:"center",marginBottom:"20px",fontFamily:'"Times New Roman", Times, serif'}}>
+        {name}
+      </div>
+      <div className="" style={{height:"450px",width:"450px",float:"right", margin:"25px"}}>
+       <img src={c_locationAddress.image.url}></img>
+      </div>
+      <div className="col-sm-6" style={{}}>
+        <div style={{display:"block",fontSize:"50px", marginLeft:"25px"}}>
+          {address.line1}{address.line2}{address.city}{address.postalCode}
         </div>
-        <div style={{textAlign:"center",marginTop:"20px",fontWeight:"400"}}>
-          {c_stayingPower}
+    
+        <div style={{margin:"25px", fontSize:"30px"}}>
+          {c_locationAddress.description}
         </div>
-        <div style={{textAlign:"center",marginTop:"20px",fontWeight:"400"}}>
-          {c_overalRating}
-        </div>
-        <div style={{textAlign:"center",marginTop:"20px",fontWeight:"400"}}>
-  <p>{c_availableOn}</p>
-        </div>
-     </div>
+      </div>
+      <div style={{fontSize:"30px",textAlign:"center",marginBottom:"100px",color:"red",textDecoration:"underline",fontWeight:"bold",paddingBottom:"70px"}}>
+        <a href={c_locationAddress.url}>LINK</a> 
+      </div>
+    <div>
+      
+  </div>
+      
+  </div>
+    
+    <Footer/>
     </>
   );
 };
