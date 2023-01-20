@@ -42,6 +42,7 @@ export const config: TemplateConfig = {
     fields: [
       "name",
       "address",
+      "hours",
       "c_locationAddress"
     ],
     // Defines the scope of entities that qualify for this stream.
@@ -130,39 +131,59 @@ const Location: Template<TemplateRenderProps> = ({
   const {
     name,
     address,
+    hours,
     c_locationAddress
   } = document;
+  const[data,setData]=React.useState([]);
+  React.useEffect(()=>{
+    fetch("https://liveapi-sandbox.yext.com/v2/accounts/me/entities?api_key=cd821ad28d2c3ed02f101d32a7fc0578&v=20230110&entityTypes=location&entityTypes=location")
+    .then((res)=>res.json())
+    .then((json)=>{
+      setData(json.response.entities)
+    })
+  },[]); 
 
 
-//console.log(c_uRL1,"c_uRL1");
+console.log(data);
   return (
     <>
     <Header/>
-    {/* <div style={{backgroundColor:"#e9e7e7"}}>
-      <div style={{fontSize:"50px",textAlign:"center",marginBottom:"20px",fontFamily:'"Times New Roman", Times, serif'}}>
-        {name}
-      </div>
-      <div className="" style={{height:"450px",width:"450px",float:"right", margin:"25px"}}>
-       <img src={c_locationAddress.image.url}></img>
-      </div>
-      <div className="col-sm-6" style={{}}>
-        <div style={{display:"block",fontSize:"50px", marginLeft:"25px"}}>
-          {address.line1}{address.line2}{address.city}{address.postalCode}
+    <Banner/>
+    {data.map((res:any)=>{
+      console.log(res,"res")
+      return(
+        <>
+        <div style={{marginTop:"10px",backgroundColor:"#FBDDF7"}}>
+        <div style={{fontSize:"50px",backgroundColor:"#DB7093",paddingLeft:"50px"}}>
+          {res.name}
         </div>
-    
-        <div style={{margin:"25px", fontSize:"30px"}}>
-          {c_locationAddress.description}
-        </div>
-      </div>
-      <div style={{fontSize:"30px",textAlign:"center",marginBottom:"100px",color:"red",textDecoration:"underline",fontWeight:"bold",paddingBottom:"70px"}}>
-        <a href={c_locationAddress.url}>LINK</a> 
-      </div>
-    <div>
-      
-  </div>
-      
-  </div> */}
-    
+        <div>
+          <div style={{height:"300px",width:"300px",float:"right",margin:"30px 0px 10px 10px "}}>
+            <img src={res.c_locationAddress.image.url}></img>
+          </div>
+          <div style={{width:"40%",padding:"30px 40px 50px 50px"}}>
+            <div style={{fontWeight:"bold"}}>
+              {res.address.line1}{res.address.line2}{res.address.city}{res.address.postalCode}
+            </div>
+          </div>
+          <div style={{marginLeft:"40%",width:"33.3%",marginTop:"-10%"}}>
+            <div style={{marginLeft:"15%",marginBottom:"5%"}}>
+              <Hours hours={hours}/>
+            </div>
+          </div>
+          <div style={{width:"40%",padding:"30px 40px 50px 50px",marginTop:"-18%"}}>
+            <div style={{paddingTop:"20px"}}>
+              {res.c_locationAddress.description}
+            </div>
+            <div style={{fontSize:"30px",textAlign:"center",color:"blue",textDecoration:"underline",fontWeight:"bold",paddingBottom:"70px"}}>
+              <a href={res.c_locationAddress.url}>LINK</a> 
+            </div>
+          </div>
+       </div>
+       
+       </div>
+       
+   </> )})}
     <Footer/>
     </>
   );
